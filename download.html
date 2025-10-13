@@ -2,40 +2,58 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Download Joamo Wallet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: Arial, sans-serif;
       background: #121212;
       color: #fff;
+      font-family: 'Segoe UI', sans-serif;
       text-align: center;
-      padding: 40px;
+      padding: 60px 20px;
     }
     h1 {
+      font-size: 2em;
       color: #00ff99;
-    }
-    .btn {
-      margin-top: 30px;
-      padding: 12px 24px;
-      background: #00ff99;
-      color: #000;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.2em;
-      text-decoration: none;
-      display: inline-block;
+      margin-bottom: 10px;
     }
     p {
       font-size: 1.1em;
       color: #ccc;
+      margin-bottom: 30px;
+    }
+    .apk-button {
+      background: #00ff99;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      padding: 14px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto 20px;
+    }
+    .qr {
+      margin-top: 30px;
+    }
+    .qr img {
+      width: 180px;
     }
   </style>
 </head>
 <body>
-  <h1>Joamo Wallet™</h1>
-  <p>Secure your crypto. Control your keys. Download the Joamo Wallet APK below:</p>
-  <a class="btn" href="https://yourdomain.netlify.app/joamo-wallet.apk" download>Download APK</a>
-  <p>After downloading, enable “Install from unknown sources” in your phone settings.</p>
+  <h1>Download Joamo Wallet</h1>
+  <p>Install the mobile app and unlock your crypto journey.</p>
+
+  <a href="joamo-wallet.apk" download>
+    <button class="apk-button">Download APK</button>
+  </a>
+
+  <div class="qr">
+    <p>Scan to install:</p>
+    <img src="joamo-wallet-qr.png" alt="Joamo Wallet QR Code">
+  </div>
 </body>
 </html>

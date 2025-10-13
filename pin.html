@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joamo Wallet - PIN Lock</title>
+  <style>
+    body {
+      background: #121212;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    input {
+      padding: 10px;
+      font-size: 1.2em;
+      border-radius: 8px;
+      border: none;
+      margin-top: 20px;
+      width: 150px;
+      text-align: center;
+    }
+    .btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #00ff99;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔒 Joamo Wallet</h1>
+  <p>Enter your 4-digit PIN to unlock:</p>
+  <input type="password" id="pinInput" maxlength="4" placeholder="••••">
+  <br>
+  <button class="btn" onclick="checkPIN()">Unlock</button>
+
+  <script>
+    const correctPIN = "2025"; // You can change this
+
+    function checkPIN() {
+      const entered = document.getElementById("pinInput").value;
+      if (entered === correctPIN) {
+        window.location.href = "wallet.html"; // Link to your wallet page
+      } else {
+        alert("Incorrect PIN. Try again.");
+      }
+    }
+  </script>
+</body>
+</html>

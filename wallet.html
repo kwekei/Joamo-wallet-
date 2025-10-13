@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -65,36 +66,81 @@
   <div id="spark">✨</div>
   <p id="quote">You didn’t come this far to stop now.</p>
 
-  <p><strong>Your Wallet Address:</strong></p>
-  <p id="walletAddress">Loading...</p>
-  <canvas id="qrcode"></canvas>
-  <button onclick="copyAddress()">Copy Address</button>
+  <div id="setup">
+    <p>Set a 4-digit PIN to secure your wallet:</p>
+    <input type="password" id="pinInput" maxlength="4" placeholder="Enter PIN"><br>
+    <button onclick="setupWallet()">Create Wallet</button>
+  </div>
 
-  <h2>Send Crypto</h2>
-  <form id="sendForm">
-    <input type="text" id="recipient" placeholder="Recipient Address" required><br>
-    <input type="number" id="amount" placeholder="Amount in ETH" required><br>
-    <button type="submit">Send ETH</button>
-  </form>
-  <p id="status"></p>
+  <div id="unlock" style="display:none;">
+    <p>Enter your PIN to unlock:</p>
+    <input type="password" id="unlockPin" maxlength="4" placeholder="Enter PIN"><br>
+    <button onclick="unlockWallet()">Unlock Wallet</button>
+  </div>
+
+  <div id="walletUI" style="display:none;">
+    <p><strong>Your Wallet Address:</strong></p>
+    <p id="walletAddress">Loading...</p>
+    <canvas id="qrcode"></canvas>
+    <button onclick="copyAddress()">Copy Address</button>
+
+    <h2>Send Crypto</h2>
+    <form id="sendForm">
+      <input type="text" id="recipient" placeholder="Recipient Address" required><br>
+      <input type="number" id="amount" placeholder="Amount in ETH" required><br>
+      <button type="submit">Send ETH</button>
+    </form>
+    <p id="status"></p>
+  </div>
 
   <script>
     let wallet;
 
-    async function createWalletAndQR() {
+    function setupWallet() {
+      const pin = document.getElementById("pinInput").value;
+      if (pin.length !== 4) {
+        alert("PIN must be 4 digits.");
+        return;
+      }
+
       wallet = ethers.Wallet.createRandom();
-      const address = wallet.address;
-      document.getElementById("walletAddress").textContent = address;
+      const encryptedKey = CryptoJS.AES.encrypt(wallet.privateKey, pin).toString();
+      localStorage.setItem("joamo_encrypted_key", encryptedKey);
 
-      QRCode.toCanvas(document.getElementById("qrcode"), address, function (error) {
-        if (error) console.error(error);
-      });
-
-      // Joamo Spark surprise
+      document.getElementById("setup").style.display = "none";
+      document.getElementById("unlock").style.display = "block";
       document.getElementById("spark").style.display = "block";
       setTimeout(() => {
         document.getElementById("quote").style.display = "block";
       }, 1000);
+    }
+
+    function unlockWallet() {
+      const pin = document.getElementById("unlockPin").value;
+      const encryptedKey = localStorage.getItem("joamo_encrypted_key");
+      if (!encryptedKey) {
+        alert("No wallet found. Please set up first.");
+        return;
+      }
+
+      try {
+        const decrypted = CryptoJS.AES.decrypt(encryptedKey, pin).toString(CryptoJS.enc.Utf8);
+        wallet = new ethers.Wallet(decrypted);
+        showWalletUI();
+      } catch (err) {
+        alert("Incorrect PIN or corrupted wallet.");
+      }
+    }
+
+    function showWalletUI() {
+      const address = wallet.address;
+      document.getElementById("walletAddress").textContent = address;
+      QRCode.toCanvas(document.getElementById("qrcode"), address, function (error) {
+        if (error) console.error(error);
+      });
+
+      document.getElementById("unlock").style.display = "none";
+      document.getElementById("walletUI").style.display = "block";
     }
 
     function copyAddress() {
@@ -121,8 +167,6 @@
         document.getElementById("status").textContent = "Error: " + err.message;
       }
     });
-
-    window.onload = createWalletAndQR;
   </script>
 </body>
 </html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Joamo Wallet</title>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+  <style>
+    body { font-family: Arial; background: #121212; color: #fff; text-align: center; padding: 40px; }
+    canvas { margin-top: 20px; }
+    button { margin-top: 20px; padding: 10px 20px; background: #00ff99; border: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h2>Joamo Wallet</h2>
+  <p><strong>Your Wallet Address:</strong></p>
+  <p id="walletAddress">Loading...</p>
+  <canvas id="qrcode"></canvas>
+  <button onclick="copyAddress()">Copy Address</button>
+
+  <script>
+    async function createWalletAndQR() {
+      const wallet = ethers.Wallet.createRandom();
+      const address = wallet.address;
+
+      document.getElementById("walletAddress").textContent = address;
+
+      QRCode.toCanvas(document.getElementById("qrcode"), address, function (error) {
+        if (error) console.error(error);
+      });
+    }
+
+    function copyAddress() {
+      const address = document.getElementById("walletAddress").textContent;
+      navigator.clipboard.writeText(address);
+      alert("Wallet address copied!");
+    }
+
+    window.onload = createWalletAndQR;
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joamo Wallet - Loading</title>
+  <style>
+    body {
+      background: #121212;
+      color: #00ff99;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 100px;
+    }
+    h1 {
+      font-size: 2.5em;
+    }
+    .loader {
+      margin-top: 40px;
+      border: 6px solid #333;
+      border-top: 6px solid #00ff99;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Joamo Wallet</h1>
+  <p>Loading your crypto vibes...</p>
+  <div class="loader"></div>
+
+  <script>
+    setTimeout(() => {
+      window.location.href = "pin.html";
+    }, 3000); // 3-second splash delay
+  </script>
+</body>
+</html>

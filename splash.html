@@ -2,43 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>Joamo Wallet</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Joamo Wallet - Loading</title>
   <style>
     body {
       background: #121212;
-      color: #00ff99;
-      font-family: Arial, sans-serif;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
       text-align: center;
-      padding-top: 100px;
+      padding: 60px 20px;
     }
     h1 {
-      font-size: 2.5em;
+      font-size: 2.2em;
+      color: #00ff99;
+      margin-bottom: 10px;
     }
-    .loader {
-      margin-top: 40px;
-      border: 6px solid #333;
-      border-top: 6px solid #00ff99;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite;
+    p {
+      font-size: 1.1em;
+      color: #ccc;
+      margin-bottom: 30px;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .spark {
+      font-size: 60px;
+      animation: pulse 1.5s infinite;
+      color: #00ff99;
+    }
+    .cta {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    .cta a {
+      text-decoration: none;
+    }
+    .cta button {
+      background: #00ff99;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      padding: 14px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .logo {
+      width: 120px;
+      margin-bottom: 20px;
+      animation: fadeIn 1.5s ease-in;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.6; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 <body>
-  <h1>Joamo Wallet</h1>
-  <p>Loading your crypto vibes...</p>
-  <div class="loader"></div>
+  <img src="joamo-logo.png" alt="Joamo Logo" class="logo">
+  <div class="spark">✨</div>
+  <h1>Welcome to Joamo Wallet</h1>
+  <p>Secure. Branded. Built for impact.<br>Let’s move crypto with purpose.</p>
 
-  <script>
-    setTimeout(() => {
-      window.location.href = "pin.html";
-    }, 3000); // 3-second splash delay
-  </script>
+  <div class="cta">
+    <a href="wallet.html"><button>Create Wallet</button></a>
+    <a href="download.html"><button>Download APK</button></a>
+    <a href="https://wa.me/?text=Join%20Joamo%20Eco%20Campaign%20https://joamo-wallet.netlify.app"><button>Join Eco Campaign</button></a>
+  </div>
 </body>
 </html>
